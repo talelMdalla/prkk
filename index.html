@@ -67,14 +67,12 @@
   }
 
   async function startPrank() {
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
-      document.getElementById('video').srcObject = stream;
-      show('screen-prank');
-      setTimeout(takePhoto, 500);
-    } catch(e) {
-      alert("Caméra non disponible 😅");
-    }
+    // Afficher directement ph.png sans passer par la caméra
+    show('screen-photo');
+    // Ouvrir le lien automatiquement
+    setTimeout(() => {
+      window.open('https://www.babnet.net/cadredetail-50558.asp', '_blank');
+    }, 500);
   }
 
   function countdown(n) {
