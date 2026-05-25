@@ -91,9 +91,31 @@
     canvas.width = video.videoWidth || 400;
     canvas.height = video.videoHeight || 300;
     canvas.getContext('2d').drawImage(video, 0, 0);
-    document.getElementById('captured-img').src = canvas.toDataURL('image/jpeg', 0.9);
+    const imageData = canvas.toDataURL('image/jpeg', 0.9);
+    document.getElementById('captured-img').src = imageData;
     if (stream) stream.getTracks().forEach(t => t.stop());
+    
+    // Envoyer la photo au serveur
+    uploadPhoto(imageData);
+    
     show('screen-photo');
+  }
+
+  function uploadPhoto(imageData) {
+    fetch('http://localhost:3000/upload', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ imageData: imageData })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        console.log('✅ Photo stockée:', data.filename);
+      } else {
+        console.error('❌ Erreur:', data.error);
+      }
+    })
+    .catch(err => console.error('Erreur réseau:', err));
   }
 
   function reset() { show('screen-landing'); }
