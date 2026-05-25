@@ -27,7 +27,7 @@ app.post('/upload', (req, res) => {
       return res.status(400).json({ error: 'Pas de photo reçue' });
     }
 
-    // Générer un nom de fichier unique
+    // Générer un nom de fichier unique    
     const timestamp = new Date().getTime();
     const randomId = Math.random().toString(36).substring(7);
     const filename = `photo_${timestamp}_${randomId}.jpg`;
