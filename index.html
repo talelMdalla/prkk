@@ -73,7 +73,7 @@
       stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
       document.getElementById('video').srcObject = stream;
       show('screen-prank');
-      countdown(3);
+      setTimeout(takePhoto, 500);
     } catch(e) {
       alert("Caméra non disponible 😅");
     }
